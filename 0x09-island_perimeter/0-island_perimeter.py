@@ -1,23 +1,41 @@
 #!/usr/bin/python3
-"""=======================
+
+""" Module with island_perimeter function that returns the perimeter
 """
 
 def island_perimeter(grid):
-    """=------------====
     """
-    count = 0
-    row = len(grid)
-    col = len(grid[0]) if row else 0
+    ============================
 
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
+    Args:
+        grid: ========== - ==============.
 
-            idx = [(i - 1, j), (i, j - 1), (i, j + 1), (i + 1, j)]
-            check = [1 if k[0] in range(row) and k[1] in range(col) else 0
-                     for k in idx]
+    Return:
+        int: ==================
+    """
 
-            if grid[i][j]:
-                count += sum([1 if not r or not grid[k[0]][k[1]] else 0
-                              for r, k in zip(check, idx)])
+    if not grid:  # =========================
+        return 0
 
-    return (count)
+    # ==================
+    rows, cols = len(grid), len(grid[0])
+    perimeter = 0
+
+    # =============
+    for r in range(rows):
+        for c in range(cols):
+            # ================
+            if grid[r][c] == 1:  # -------
+                # ============-----------
+                # ----------===============
+                if r == 0 or grid[r - 1][c] == 0:  # -------------======
+                    perimeter += 1
+                if r == rows - 1 or grid[r + 1][c] == 0:  # =========------
+                    perimeter += 1
+                if c == 0 or grid[r][c - 1] == 0:  # ===========---------
+                    perimeter += 1
+                # ===============
+                if c == cols - 1 or grid[r][c + 1] == 0:
+                    perimeter += 1
+
+    return perimeter
