@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """===================================="""
 
+
 def isWinner(x, nums):
     """x - rounds
     nums - numbers list
@@ -29,8 +30,11 @@ def isWinner(x, nums):
         return "Maria"
     return None
 
+
 def rm_multiples(ls, x):
     """=====================
+
+    ====================
     """
     for i in range(2, len(ls)):
         try:
