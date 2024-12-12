@@ -1,70 +1,39 @@
 #!/usr/bin/python3
-
-"""
--------------------------------
--------------------------
-----------------
-"""
-
+"""===================================="""
 
 def isWinner(x, nums):
+    """x - rounds
+    nums - numbers list
     """
-
-    000000000000000000000000000000000000
-    000000000000000
-    """
-
-    if x < 1 or not nums:
+    if x <= 0 or nums is None:
         return None
-    def sieve(n):
-        """
-        ------------------------------
-        ----------------
-        """
-        is_prime = [True] * (n + 1)
-        is_prime[0] = is_prime[1] = False
-        p = 2
-        while (p * p <= n):
-            if is_prime[p]:
-                for multiple in range(p * p, n + 1, p):
-                    is_prime[multiple] = False
-            p += 1
-        return [num for num, prime in enumerate(is_prime) if prime]
+    if x != len(nums):
+        return None
 
-    max_n = max(nums)
-    primes = sieve(max_n)
+    ben = 0
+    maria = 0
 
-    def play_game(n):
-        """
-        ====================================
-        =============
-        """
-        primes_set = set(primes)
-        primes_in_game = [p for p in primes if p <= n]
-        current_player = 0
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        rm_multiples(a, i)
 
-        while primes_in_game:
-            prime = primes_in_game.pop(0)
-            primes_set.remove(prime)
-            multiples = range(prime, n + 1, prime)
-            primes_in_game = [p for p in primes_in_game if p not in multiples]
-            current_player = 1 - current_player
-
-        return current_player
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        winner = play_game(n)
-        if winner == 0:
-            ben_wins += 1
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
+            ben += 1
         else:
-            maria_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
+            maria += 1
+    if ben > maria:
         return "Ben"
-    else:
-        return None
+    if maria > ben:
+        return "Maria"
+    return None
+
+def rm_multiples(ls, x):
+    """=====================
+    """
+    for i in range(2, len(ls)):
+        try:
+            ls[i * x] = 0
+        except (ValueError, IndexError):
+            break
